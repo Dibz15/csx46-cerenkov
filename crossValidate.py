@@ -52,6 +52,7 @@ def sliceLabels(folds):
         SNPfeatures = SNPfeatures.to_numpy()
         foldList.append(SNPfeatures)
         labelList.append(labels)
+    print(len(foldList))
     return foldList, labelList
     
 def runCV(folds,labels):
@@ -97,6 +98,7 @@ def getKfolds(dataFile,groupsFile,k,nreps):
         folds = splitData(k,n,groups,dataDF) # split data into k groups
         print(len(folds))
         balancedFolds = balanceFoldSizes(folds) # make sure we have same number of SNPs per fold
+        print(len(balancedFolds))
         foldList, labelList = sliceLabels(balancedFolds) # remove labels from feature data and save separately
         print(len(foldList),len(labelList))
         returnFolds.append((foldList,labelList))
