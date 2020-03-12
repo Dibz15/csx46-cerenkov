@@ -7,8 +7,6 @@ from sklearn.model_selection import cross_validate
 import xgboost as xgb
 # import code to train/test somehow?
 
-
-
 # SUBROUTINES
 def splitData(n, groups, data):
     # get group IDs
@@ -43,38 +41,35 @@ def getRemainder(data,i):
         remainderList.extend(x)
     return remainderList
     
-# ARGUMENTS and MAIN
-dataFile = sys.argv[1]
-groupsFile = sys.argv[2]
+    
+def kFoldsValidate(dataFile, groupsFile, k):
+    # read data file
+    dataDF = pandas.read_csv(dataFile, sep='\t')
 
-# read data file
-dataDF = pandas.read_csv(dataFile, sep='\t')
+    # read groups file
+    groups,sizes = {},{}
+    with open(groupsFile,'r') as groupsFile:
+        next(groupsFile) # skip header
+        for line in groupsFile:
+            chrom, start, stop, SNPname, groupID, groupSize = line.strip().split('\t')
+            # save SNP IDs for each group
+            if groupID not in groups:
+                groups[groupID] = []
+            groups[groupID].append(SNPname)
+            # save size of each group
+            if groupID not in sizes:
+                sizes[groupID] = groupSize
+    groupsFile.close()
 
-# read groups file
-groups,sizes = {},{}
-with open(groupsFile,'r') as groupsFile:
-    next(groupsFile) # skip header
-    for line in groupsFile:
-        chrom, start, stop, SNPname, groupID, groupSize = line.strip().split('\t')
-        # save SNP IDs for each group
-        if groupID not in groups:
-            groups[groupID] = []
-        groups[groupID].append(SNPname)
-        # save size of each group
-        if groupID not in sizes:
-            sizes[groupID] = groupSize
-groupsFile.close()
+    # split data
+    #nreps = 5
+    n = round(len(groups)/k)  # number of groups per fold
 
-# split data
-k = 10
-nreps = 5
-n = round(len(groups)/k)  # number of groups per fold
-for i in range(0,nreps):
     print(i)
     folds, labelList = [],[] # folds will be a list of k numpy arrays
     for i in range(0,k):
         SNPfeatures, labels = splitData(n,groups,dataDF) # split data into k groups
         folds.append(SNPfeatures)
         labelList.append(labels)
-        
+
     runCV(folds,labelList)  # run k-fold cross validation
