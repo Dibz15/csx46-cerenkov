@@ -95,7 +95,9 @@ def getKfolds(dataFile,groupsFile,k,nreps):
     for i in range(0,nreps):
         print(i)
         folds = splitData(k,n,groups,dataDF) # split data into k groups
+        print(len(folds))
         balancedFolds = balanceFoldSizes(folds) # make sure we have same number of SNPs per fold
         foldList, labelList = sliceLabels(balancedFolds) # remove labels from feature data and save separately
+        print(len(foldList),len(labelList))
         returnFolds.append((foldList,labelList))
     return returnFolds
