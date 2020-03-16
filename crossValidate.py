@@ -63,17 +63,21 @@ def runCV(folds,labels):
         # run classifier
         # save output
         
-def getRemainder(data,i):
-    remainder = [j for j in data if data.index(j) != i]
+def getRemainder(data, i):
+    remainder = [j for idx, j in enumerate(data) if idx != i]
     remainderList = []
     for x in remainder:
+        print(type(x))
         remainderList.extend(x)
     return remainderList
 
-def getKfolds(dataFile,groupsFile,k,nreps):
+def getKfolds(dataDF, groupsFile, k, nreps):
     # read data file
-    dataDF = pandas.read_csv(dataFile, sep='\t')
+    #dataDF = pandas.read_csv(dataFile, sep='\t')
 
+    #Drop any rows that have NaN values
+    dataDF = dataDF.drop(dataDF.query('label != 0 & label != 1').index)
+    
     # read groups file
     groups,sizes = {},{}
     with open(groupsFile,'r') as groupsFile:
