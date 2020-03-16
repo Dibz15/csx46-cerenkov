@@ -60,9 +60,9 @@ def runCV(folds,labels):
         trainLabels = labels[i]
         validateMatrix = getRemainder(folds,i)
         validateLabels = getRemainder(labels,i)
-        # run classifier
-        # save output
-        
+
+    return (trainMatrix,trainLabels,validateMatrix,validateLabels)
+
 def getRemainder(data, i):
     remainder = [j for idx, j in enumerate(data) if idx != i]
     remainderList = []
@@ -103,5 +103,6 @@ def getKfolds(dataDF, groupsFile, k, nreps):
         foldList, labelList = sliceLabels(balancedFolds) # remove labels from feature data and save separately
         returnFolds.append((foldList,labelList))
     return returnFolds
+
 
 #getKfolds('osu18_cerenkov_feat_mat.tsv','osu18_groups.tsv',10,1)
