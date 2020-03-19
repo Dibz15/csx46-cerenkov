@@ -67,7 +67,6 @@ def getRemainder(data, i):
     remainder = [j for idx, j in enumerate(data) if idx != i]
     remainderList = []
     for x in remainder:
-        print(type(x))
         remainderList.extend(x)
     return remainderList
 
@@ -97,7 +96,6 @@ def getKfolds(dataDF, groupsFile, k, nreps):
     returnFolds = []
     n = round(len(groups)/k)  # number of groups per fold
     for i in range(0,nreps):
-        print(i)
         folds = splitData(k,n,groups,dataDF) # split data into k groups
         balancedFolds = balanceFoldSizes(folds) # make sure we have same number of SNPs per fold
         foldList, labelList = sliceLabels(balancedFolds) # remove labels from feature data and save separately
