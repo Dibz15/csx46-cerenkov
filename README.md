@@ -1,7 +1,7 @@
 # csx46-cerenkov
 
 
-This repository is for code from for a final project in CSX46 at Oregon State University.
+This repository is for code from a final project in CSX46 at Oregon State University.
 
 Methods and data come from Yao et al's work on the CERENKOV project, which uses XGBoost classifiers
 to distinguish rSNP from non-regulatory cSNPs.
