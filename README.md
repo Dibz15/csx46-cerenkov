@@ -11,3 +11,5 @@ depending on the value of `nreps` and `k` in the file. Libraries used are Pandas
 xgboost, scikit-learn, and matplotlib.
 
 Our final poster with our results from this project can be viewed [here.](https://drive.google.com/file/d/116NPsWZndfbVuNo1EU8Qussdk29fB44g/view?usp=sharing)
+
+Our work was based on/inspired by previous work on CERENKOV, which can be found at the [cerenkov](https://github.com/ramseylab/cerenkov) and [cerenkov3](https://github.com/ramseylab/cerenkov3) repositories.
