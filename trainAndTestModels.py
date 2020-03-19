@@ -224,5 +224,3 @@ def plotImportance():
   df = pandas.read_csv('osu18_cerenkov_feat_mat.tsv', sep='\t')
   auc, acc = xgBoost(df, test_split=0.2, sampler=None, nreps=5, plotImportance=True)
 
-
-plotImportance()
